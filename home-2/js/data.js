@@ -6,7 +6,7 @@
 */
 (function () {
   const IMG = 'https://codevlabs.com/api/cup/uploads/5/';
-  const UNS = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w || 900}&q=70`;
+  const UNS = (id, w, h) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w || 900}${h ? '&h=' + h : ''}&q=70`;
 
   const AIRPORT = 'Malta International Airport (MLA)';
 
@@ -49,6 +49,20 @@
     { name: 'Valletta Cruise Port', price: 16, mins: 20 }
   ];
 
+  // Thumbnail per destination (Unsplash, free licence).
+  const routeImg = {
+    'Valletta': '1669294841689-0ceb34ad40c1', "St Julian's": '1675773681378-0aef6f722a5e', 'Sliema': '1669718022108-505b40ed2e65',
+    'Bugibba': '1724176432750-97c4625e2ecf', 'Qawra': '1702855830481-57a0de1948fa', 'Golden Bay': '1512679186997-081a6da4e083',
+    'Mellieħa': '1671196365369-1c5edb4c0e1c', 'Mdina & Rabat': '1578930793485-196f13e97ce0', 'Floriana': '1600498202878-79bdcbe69033',
+    'Gżira': '1669717863666-165b88e329d8', 'Msida': '1665608932866-7a8eaaf63e8d', 'Pembroke': '1710957442268-a897d6074f99',
+    'Paceville': '1645097146323-a6c1478b0774', "St Paul's Bay": '1739393939001-f74e9a41bdc8', 'Mosta': '1607900290825-b5cebb9f832d',
+    'Attard': '1736971624947-2d2caf2d5bb3', "Ta' Qali": '1584347970643-928be84331da', 'Birgu (Vittoriosa)': '1671448037849-a2258db28bfb',
+    'Kalkara': '1697468362685-825eef3d00d2', 'Marsaskala': '1694558391727-eff55c972a33', 'Marsaxlokk': '1587974928552-4f4aac51b45d',
+    'Birżebbuġa': '1561369408-1e91d37fd2c5', 'Mġarr (Malta)': '1587210893789-e773df95ed41', 'Ċirkewwa (Gozo ferry)': '1730190203082-73a4b980b9a8',
+    'Gozo, Victoria (incl. ferry)': '1571856975545-119703c5225c', 'Valletta Cruise Port': '1736531966587-fe98ab5f8a79'
+  };
+  routes.forEach((r) => { if (routeImg[r.name]) r.img = UNS(routeImg[r.name], 120, 120); });
+
   // Extra pickup / drop-off points mapped to a priced locality.
   const places = [
     { name: AIRPORT, area: 'Luqa', airport: true },
@@ -81,9 +95,7 @@
     { id: 'gozo', name: 'Gozo Discovery Day', type: 'full', hours: 8, price: 340, rating: 5.0, reviews: 97,
       img: UNS('1571856975545-119703c5225c', 900), stops: ['Ferry included', 'Victoria Citadel', 'Ramla Bay & Xlendi'] },
     { id: 'highlights', name: 'Malta Highlights in a Day', type: 'full', hours: 8, price: 320, rating: 4.9, reviews: 186,
-      img: UNS('1560365337-6f42f70dd874', 900), stops: ['Valletta', 'Mdina', 'Mosta Dome', 'Marsaxlokk'] },
-    { id: 'west', name: 'Golden Bay & Popeye Village', type: 'half', hours: 4, price: 150, rating: 4.7, reviews: 88,
-      img: UNS('1548780416-f23a4186ceb9', 900), stops: ['Popeye Village viewpoint', 'Golden Bay', 'Għajn Tuffieħa'] }
+      img: UNS('1560365337-6f42f70dd874', 900), stops: ['Valletta', 'Mdina', 'Mosta Dome', 'Marsaxlokk'] }
   ];
 
   // Real Johns vintage fleet (from johns.com.mt/weddings). Prices are placeholders.
