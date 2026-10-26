@@ -4,5 +4,9 @@
   "buildCommand": "npm run build",
   "installCommand": "",
   "outputDirectory": "dist",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/review", "destination": "/home-1/review/", "permanent": false }
+  ]
 }

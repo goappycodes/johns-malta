@@ -6,8 +6,5 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
-homepage/.openai/
-homepage/.sites-local/
-homepage/qa/
-homepage/source-assets/
-claude-homepage/screens/
+dist/
+qa/

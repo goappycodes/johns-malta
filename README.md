@@ -1,45 +1,34 @@
 # John's Malta homepage designs
 
-Two independent static website concepts, each ready to deploy as a separate Vercel project.
+One repository and one Vercel deployment serve both designs.
 
-| Design | Vercel Root Directory | Framework Preset | Output Directory |
-| --- | --- | --- | --- |
-| Homepage | `homepage` | Other | `dist` |
-| Claude homepage | `claude-homepage` | Other | `.` |
+| Route | Design | Source |
+| --- | --- | --- |
+| `/` | Design chooser | `index.html` |
+| `/home-1/` | Codex | `home-1/` |
+| `/home-2/` | Claude | `home-2/` |
+| `/home-1/review/` | Desktop/mobile review for Home 1 | `home-1/review.html` |
 
-## Deploy on Vercel
+## Vercel
 
-1. Import this GitHub repository into Vercel.
-2. Choose `homepage` as the Root Directory for the first project.
-3. Keep the framework preset as **Other**. The folder's `vercel.json` sets the build and output options.
-4. Import the same repository again and choose `claude-homepage` as the Root Directory for the other project.
+Use the repository root (leave Root Directory blank), Framework Preset **Other**, Build Command `npm run build`, and Output Directory `dist`. No dependencies, environment variables or second project are required. The root `vercel.json` declares these settings.
 
-Neither design requires environment variables or runtime dependencies. Both are static HTML/CSS/JavaScript prototypes. The proposed Next.js/CMS and WordPress implementations are future development options.
-
-The `homepage` variant includes airport transfers, hourly chauffeur, private tours and wedding-car booking/enquiry demonstrations. Its separate illustrated Travel and Car care & leasing menus also link to enquiry-only mechanical garage, car wash/detailing and leasing forms.
-
-Booking prices and availability are illustrative. Forms and checkout previews do not create live bookings, send enquiries or take payments.
+Trailing slashes keep each design's relative image, CSS and JavaScript paths working. Existing `/review` links redirect to Home 1's review page.
 
 ## Local preview
 
-For `homepage`:
-
 ```sh
-cd homepage
 npm run dev
 ```
 
-Open `http://localhost:4173`. `review.html` provides desktop/mobile review controls. `npm run build` checks JavaScript syntax; the deployable files are already in `dist/`.
+Open `http://localhost:4173`. Run `npm run build` to check JavaScript syntax and produce both designs in `dist/`.
 
-For `claude-homepage`, serve that directory with any static HTTP server, for example:
+## Prototype scope
 
-```sh
-cd claude-homepage
-python -m http.server 4174
-```
+Both designs are static HTML/CSS/JavaScript prototypes. Prices and availability are illustrative; forms do not create live bookings, send enquiries or process payments. Proposed Next.js/CMS and WordPress implementations are future development options.
 
-## Assets
+Home 1 includes separate Travel and Car care & leasing menus. Garage, car wash/detailing and leasing use enquiry forms.
 
-John's branding and fleet images are from the client's public website. Other travel and service photographs are design reference assets; confirm production reuse rights or replace them with licensed client imagery. Font licence files are included alongside the self-hosted fonts in `homepage/dist/assets/fonts/`.
+Client branding and fleet images are from John's public website; other photographs are design reference assets. Confirm production reuse rights or replace them with licensed client imagery. Font licences are in `home-1/assets/fonts/`.
 
-Only the website files are included. Internal briefs, pricing proposals, source credentials, Sites hosting metadata and working screenshots are excluded.
+Internal briefs, commercial proposals, credentials, Sites hosting metadata and working screenshots are excluded.
