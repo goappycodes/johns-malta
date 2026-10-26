@@ -79,6 +79,12 @@ document.addEventListener('keydown', event => {
   if (!document.querySelector('#mobile-menu').hidden) closeJohnsServiceMenus();
 });
 
+document.addEventListener('toggle', event => {
+  if (!event.target.matches('.services-menu,.mobile-services-menu') || !event.target.open) return;
+  const selector = event.target.classList.contains('mobile-services-menu') ? '.mobile-services-menu' : '.services-menu';
+  document.querySelectorAll(selector).forEach(menu => { if (menu !== event.target) menu.open = false; });
+}, true);
+
 document.addEventListener('submit', event => {
   if (event.target.id !== 'additional-service-form') return;
   event.preventDefault();

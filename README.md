@@ -16,7 +16,7 @@ Two independent static website concepts, each ready to deploy as a separate Verc
 
 Neither design requires environment variables or runtime dependencies. Both are static HTML/CSS/JavaScript prototypes. The proposed Next.js/CMS and WordPress implementations are future development options.
 
-The `homepage` variant includes airport transfers, hourly chauffeur, private tours and wedding-car booking/enquiry demonstrations. Its illustrated services menu also links to enquiry-only mechanical garage, car wash/detailing and leasing forms.
+The `homepage` variant includes airport transfers, hourly chauffeur, private tours and wedding-car booking/enquiry demonstrations. Its separate illustrated Travel and Car care & leasing menus also link to enquiry-only mechanical garage, car wash/detailing and leasing forms.
 
 Booking prices and availability are illustrative. Forms and checkout previews do not create live bookings, send enquiries or take payments.
 

@@ -487,6 +487,7 @@ h2,.fleet-intro h2,.story-copy h2,.faq-section h2 {font:650 36px/1.2 var(--body)
 }
 
 /* Illustrated navigation: launch booking services and enquiry-only car care. */
+.desktop-nav {gap:22px;}
 .services-menu>summary {display:flex;align-items:center;gap:9px;min-height:48px;}
 .nav-chevron {width:20px;height:20px;stroke-width:2;transition:transform .18s ease;flex:none;}
 .services-menu[open]>summary .nav-chevron,.mobile-services-menu[open]>summary .nav-chevron {transform:rotate(180deg);}
@@ -506,6 +507,11 @@ h2,.fleet-intro h2,.story-copy h2,.faq-section h2 {font:650 36px/1.2 var(--body)
 .additional-services .nav-service-item img {width:66px;height:51px;}
 .additional-services .nav-service-item>span {display:flex;align-items:center;justify-content:space-between;gap:20px;}
 .additional-services .nav-service-item small {margin:0;text-align:right;}
+.travel-menu .mega-menu {width:730px;left:-150px;}
+.car-care-menu .mega-menu {width:460px;left:-55px;}
+.car-care-menu .additional-services {margin:0;padding:0;border:0;}
+.car-care-menu .additional-services .nav-service-item>span {display:block;}
+.car-care-menu .additional-services .nav-service-item small {margin-top:5px;text-align:left;}
 .mobile-menu nav>.mobile-services-menu {display:block;padding:0;}
 .mobile-services-menu>summary {list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;min-height:60px;font-size:18px;}
 .mobile-services-menu>summary::-webkit-details-marker {display:none;}
