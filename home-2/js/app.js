@@ -184,7 +184,8 @@
         if (s.empty) return `<li class="cl-empty" role="presentation">No match. Keep typing your full address, we will confirm the fare.</li>`;
         const route = s.route || (s.area && routeByNorm.get(norm(s.area)));
         const price = otherIsAirport && route && input.id !== 'hrFrom' ? `<span class="cl-price">${euro(route.price)}</span>` : '';
-        return `<li role="option" id="${input.id}-opt-${i}" data-i="${i}" aria-selected="false"><span class="cl-ic">${icon(s.icon)}</span><span class="cl-text"><strong>${esc(s.label)}</strong><small>${esc(s.sub)}</small></span>${price}</li>`;
+        const thumb = s.route && s.route.img ? `<span class="cl-ic cl-img"><img src="${s.route.img}" alt="" loading="lazy" width="34" height="34"></span>` : `<span class="cl-ic">${icon(s.icon)}</span>`;
+        return `<li role="option" id="${input.id}-opt-${i}" data-i="${i}" aria-selected="false">${thumb}<span class="cl-text"><strong>${esc(s.label)}</strong><small>${esc(s.sub)}</small></span>${price}</li>`;
       }).join('');
     }
 
@@ -412,7 +413,7 @@
     const v = vehicleById[routeClass];
     routeList.innerHTML = list.length ? list.map((r) => `
       <li><a class="route-row" href="/airport-transfers/mla-to-${slug(r.name)}" data-route="${esc(r.name)}">
-        <span class="rr-ic">${icon('i-plane')}</span>
+        <span class="rr-img">${r.img ? `<img src="${r.img}" alt="" loading="lazy" width="48" height="48">` : icon('i-plane')}</span>
         <span class="rr-text"><strong>${esc(r.name)}</strong><small>~${r.mins} min · ${v.seats} seats</small></span>
         <span class="rr-price"><b>${euro(vehiclePrice(r.price, routeClass))}</b><span>${v.name}</span></span>
         <span class="rr-go">${icon('i-arrow')}</span>
@@ -437,30 +438,25 @@
     openBooking('transfer', { keepVehicle: true });
   });
 
-  /* ==========================================================================
-     Fleet
-     ========================================================================== */
-  $('[data-fleet-grid]').innerHTML = D.vehicles.map((v) => `
-    <article class="fleet-card">
-      <div class="fleet-media"><img src="${v.img}" alt="${esc(v.name)}: ${esc(v.model)}" loading="lazy" width="800" height="533"></div>
-      <div class="fleet-body">
-        <h3>${esc(v.name)}</h3>
-        <p class="model">${esc(v.model)}</p>
-        <div class="fleet-cap"><span>${icon('i-user')}${v.seats} seats</span><span>${icon('i-bag')}${v.bags} bags</span></div>
-        <ul class="fleet-perks">${v.perks.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
-        <div class="fleet-prices">
-          <div><small>Airport transfer</small><b>from ${euro(vehiclePrice(15, v.id))}</b></div>
-          <div><small>By the hour</small><b>${v.id === 'economy' ? 'n/a' : euro(v.hourly) + '/h'}</b></div>
-        </div>
-      </div>
-    </article>`).join('');
-
-  // rail arrows
-  $$('[data-rail-prev],[data-rail-next]').forEach((b) => b.addEventListener('click', () => {
+  // rail arrows (disabled at either end)
+  const railButtons = $$('[data-rail-prev],[data-rail-next]');
+  const syncRail = (rail) => {
+    const max = rail.scrollWidth - rail.clientWidth - 2;
+    railButtons.forEach((b) => {
+      if ((b.dataset.railPrev || b.dataset.railNext) !== rail.id) return;
+      b.disabled = b.dataset.railPrev ? rail.scrollLeft <= 2 : rail.scrollLeft >= max;
+    });
+  };
+  railButtons.forEach((b) => {
     const rail = document.getElementById(b.dataset.railPrev || b.dataset.railNext);
-    const dir = b.dataset.railPrev ? -1 : 1;
-    rail.scrollBy({ left: dir * rail.clientWidth * 0.8, behavior: reducedMotion ? 'auto' : 'smooth' });
-  }));
+    if (!rail) return;
+    b.addEventListener('click', () => rail.scrollBy({ left: (b.dataset.railPrev ? -1 : 1) * rail.clientWidth * 0.8, behavior: reducedMotion ? 'auto' : 'smooth' }));
+    if (rail.dataset.synced) return;
+    rail.dataset.synced = '1';
+    rail.addEventListener('scroll', () => syncRail(rail), { passive: true });
+    window.addEventListener('resize', () => syncRail(rail));
+    window.addEventListener('load', () => syncRail(rail));
+  });
 
   /* ==========================================================================
      Hourly calculator
@@ -1318,15 +1314,16 @@
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([en]) => { bookerOut = !en.isIntersecting && en.boundingClientRect.top < 0; updateMobileCta(); }, { threshold: 0 }).observe(booker);
 
-    // active nav link
-    const links = $$('.main-nav a');
+    // active nav link (cleared while the hero is in view)
+    const links = $$('.main-nav > ul > li > a');
     const navIO = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         if (!en.isIntersecting) return;
-        links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + en.target.id));
+        const id = window.scrollY < 200 ? 'top' : en.target.id;
+        links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + id));
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    links.forEach((a) => { const s = document.getElementById(a.getAttribute('href').slice(1)); if (s) navIO.observe(s); });
+    ['top', ...links.map((a) => a.getAttribute('href').slice(1))].forEach((id) => { const el = document.getElementById(id); if (el) navIO.observe(el); });
   }
 
   // reveal on scroll
@@ -1350,6 +1347,54 @@
     toast(b.dataset.cookieChoice === 'accept' ? 'Thanks. Analytics enabled.' : 'Only essential cookies will be used.');
   }));
   $('[data-cookie-open]').addEventListener('click', () => { cookie.hidden = false; updateMobileCta(); });
+
+  /* ==========================================================================
+     Car care dropdown (hover on desktop, click and keyboard everywhere)
+     ========================================================================== */
+  $$('[data-nav-dd]').forEach((dd) => {
+    const btn = $('.nav-dd-btn', dd);
+    const set = (open) => { dd.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); };
+    btn.addEventListener('click', (e) => { e.stopPropagation(); set(!dd.classList.contains('is-open')); });
+    dd.addEventListener('keydown', (e) => { if (e.key === 'Escape') { set(false); btn.focus(); } });
+    dd.addEventListener('mouseleave', () => set(false));
+    document.addEventListener('click', (e) => { if (!dd.contains(e.target)) set(false); });
+    $$('a', dd).forEach((a) => a.addEventListener('click', () => set(false)));
+  });
+
+  // Phase 2 booking flows are not part of this prototype
+  document.addEventListener('click', (e) => {
+    const soon = e.target.closest('[data-soon]');
+    if (!soon) return;
+    e.preventDefault();
+    toast(`${soon.dataset.soon} arrives in Phase 2`);
+  });
+
+  /* ==========================================================================
+     Hero video (the poster image stays as the fallback)
+     ========================================================================== */
+  const video = $('[data-video]');
+  const vToggle = $('[data-video-toggle]');
+  const conn = navigator.connection || {};
+  if (video && !reducedMotion && !conn.saveData && !/2g/.test(conn.effectiveType || '')) {
+    let userPaused = false;
+    video.muted = true;
+    video.src = window.innerWidth < 768 ? video.dataset.srcSd : video.dataset.srcHd;
+    const tryPlay = () => { const p = video.play(); if (p) p.catch(() => {}); };
+    const syncToggle = () => {
+      vToggle.setAttribute('aria-label', video.paused ? 'Play background video' : 'Pause background video');
+      $('use', vToggle).setAttribute('href', video.paused ? '#i-play' : '#i-pause');
+    };
+    video.addEventListener('playing', () => { video.classList.add('is-ready'); vToggle.hidden = false; }, { once: true });
+    video.addEventListener('play', syncToggle);
+    video.addEventListener('pause', syncToggle);
+    video.addEventListener('error', () => { video.remove(); vToggle.hidden = true; });
+    vToggle.addEventListener('click', () => {
+      if (video.paused) { userPaused = false; tryPlay(); } else { userPaused = true; video.pause(); }
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([en]) => { if (en.isIntersecting) { if (!userPaused) tryPlay(); } else video.pause(); }).observe($('.hero'));
+    } else tryPlay();
+  }
 
   /* ---------- init ---------- */
   initDates();
