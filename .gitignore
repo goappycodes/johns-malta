@@ -1,0 +1,13 @@
+node_modules/
+.vercel/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.log
+homepage/.openai/
+homepage/.sites-local/
+homepage/qa/
+homepage/source-assets/
+claude-homepage/screens/
