@@ -316,7 +316,6 @@
 
   const carOptions = `<option value="any">Any available classic car</option>` + D.cars.map((c) => `<option value="${c.id}">${esc(c.name)} (${c.year})</option>`).join('');
   $('#wdCar').innerHTML = carOptions;
-  $('#avCar').innerHTML = carOptions;
   $('#wdCar').addEventListener('change', updateHints);
 
   function updateHints() {
@@ -533,37 +532,6 @@
     openBooking('tour');
   });
 
-  /* ==========================================================================
-     Weddings
-     ========================================================================== */
-  $('[data-car-grid]').innerHTML = D.cars.map((c) => `
-    <article class="car-card">
-      <div class="car-media"><img src="${c.img}" alt="${esc(c.name)}, ${c.year}" loading="lazy" width="1200" height="800"></div>
-      <div class="car-body">
-        <span class="car-year">${c.year}</span>
-        <h3>${esc(c.name)}</h3>
-        <div class="car-meta"><span>${icon('i-user')}${c.seats} seats</span><span>${esc(c.colour)}</span></div>
-        <div class="car-foot">
-          <div><small>From, 3 hours</small><b>${euro(c.price)}</b></div>
-          <button class="car-check" type="button" data-check-car="${c.id}">Check date</button>
-        </div>
-      </div>
-    </article>`).join('');
-
-  document.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-check-car]');
-    if (!b) return;
-    $('#avCar').value = b.dataset.checkCar;
-    const card = $('[data-avail-form]');
-    card.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
-    showAvailability($('[data-avail-result="section"]'), $('#avDate').value, b.dataset.checkCar);
-  });
-
-  $('[data-avail-form]').addEventListener('submit', (e) => {
-    e.preventDefault();
-    showAvailability($('[data-avail-result="section"]'), $('#avDate').value, $('#avCar').value);
-  });
-
   function hash(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return Math.abs(h); }
   function availability(date, carId) {
     const d = parseISO(date);
@@ -613,10 +581,8 @@
       const box = alt.closest('.avail-result');
       const date = alt.dataset.altDate || alt.dataset.date;
       const car = alt.dataset.altCar || alt.dataset.car;
-      const form = box.closest('form');
-      const dateInput = form.id === 'panel-wedding' ? $('#wdDate') : $('#avDate');
-      const carSel = form.id === 'panel-wedding' ? $('#wdCar') : $('#avCar');
-      dateInput.value = date; carSel.value = car;
+      $('#wdDate').value = date;
+      $('#wdCar').value = car;
       showAvailability(box, date, car);
       return;
     }
@@ -1301,6 +1267,14 @@
   // service cards preselect the right tab when the visitor is going to book
   $$('[data-service-card]').forEach((c) => c.addEventListener('click', () => selectTab(c.dataset.serviceCard)));
 
+  // links that open a tab in the hero booker (e.g. Wedding cars)
+  $$('[data-book-tab]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMenu();
+    selectTab(a.dataset.bookTab);
+    scrollToBooker();
+  }));
+
   // sticky mobile CTA
   const mcta = $('[data-mobile-cta]');
   let bookerOut = false;
@@ -1323,13 +1297,13 @@
         links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + id));
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['top', ...links.map((a) => a.getAttribute('href').slice(1))].forEach((id) => { const el = document.getElementById(id); if (el) navIO.observe(el); });
+    ['top', ...links.map((a) => a.getAttribute('href').slice(1))].forEach((id) => { const el = document.getElementById(id); if (el && el.tagName === 'SECTION') navIO.observe(el); });
   }
 
   // reveal on scroll
   if ('IntersectionObserver' in window && !reducedMotion) {
     const io = new IntersectionObserver((entries) => entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px' });
-    $$('.section-head, .svc-grid, .transfers-copy, .routes-card, .chauffeur-copy, .weddings-copy, .avail-card, .status-demo, .about-copy').forEach((el) => { el.classList.add('reveal'); io.observe(el); });
+    $$('.section-head, .svc-grid, .transfers-copy, .routes-card, .chauffeur-copy, .about-copy').forEach((el) => { el.classList.add('reveal'); io.observe(el); });
   }
 
   /* ==========================================================================

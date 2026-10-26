@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..800&family=Raleway:wght@400..700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="https://images.unsplash.com/photo-1717227268234-0a73de8479ff?auto=format&fit=crop&w=1000&q=70" media="(max-width: 899px)">
   <link rel="preload" as="image" href="https://images.unsplash.com/photo-1717227268234-0a73de8479ff?auto=format&fit=crop&w=2000&q=70" media="(min-width: 900px)">
-  <link rel="stylesheet" href="css/styles.css?v=14">
+  <link rel="stylesheet" href="css/styles.css?v=15">
 
   <!-- GA4 loads only after consent (Consent Mode v2, default denied). Measurement ID added at build. -->
 
@@ -140,7 +140,7 @@
           <li><a href="#transfers">Airport transfers</a></li>
           <li><a href="#chauffeur">Chauffeur hire</a></li>
           <li><a href="#tours">Private tours</a></li>
-          <li><a href="#weddings">Wedding cars</a></li>
+          <li><a href="#booker" data-book-tab="wedding">Wedding cars</a></li>
           <li class="nav-dd" data-nav-dd>
             <button class="nav-dd-btn" type="button" aria-expanded="false" aria-controls="ddCarCare">Car care<svg class="ic" aria-hidden="true"><use href="#i-down"/></svg></button>
             <div class="dd-panel" id="ddCarCare">
@@ -173,7 +173,7 @@
         <li><a href="#transfers" data-menu-link><span class="mm-ic"><svg class="ic" aria-hidden="true"><use href="#i-plane"/></svg></span><span><strong>Airport transfers</strong><small>Fixed prices from €15</small></span><svg class="ic chev" aria-hidden="true"><use href="#i-right"/></svg></a></li>
         <li><a href="#chauffeur" data-menu-link><span class="mm-ic"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg></span><span><strong>Chauffeur by the hour</strong><small>From €40 per hour</small></span><svg class="ic chev" aria-hidden="true"><use href="#i-right"/></svg></a></li>
         <li><a href="#tours" data-menu-link><span class="mm-ic"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg></span><span><strong>Private tours</strong><small>Set tours or build your own</small></span><svg class="ic chev" aria-hidden="true"><use href="#i-right"/></svg></a></li>
-        <li><a href="#weddings" data-menu-link><span class="mm-ic"><svg class="ic" aria-hidden="true"><use href="#i-gem"/></svg></span><span><strong>Weddings &amp; vintage cars</strong><small>Check your date</small></span><svg class="ic chev" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+        <li><a href="#booker" data-book-tab="wedding" data-menu-link><span class="mm-ic"><svg class="ic" aria-hidden="true"><use href="#i-gem"/></svg></span><span><strong>Weddings &amp; vintage cars</strong><small>Check your date</small></span><svg class="ic chev" aria-hidden="true"><use href="#i-right"/></svg></a></li>
       </ul>
       <p class="mm-group">Car care</p>
       <ul class="mm-care">
@@ -470,7 +470,7 @@
               <span class="svc-price">From <strong>€150</strong> per vehicle</span>
             </div>
           </a>
-          <a class="svc-card" href="#weddings" data-service-card="wedding">
+          <a class="svc-card" href="#booker" data-book-tab="wedding">
             <img src="https://codevlabs.com/api/cup/uploads/5/Wedding%20Couple.jpg" alt="Newlyweds with a white vintage Rolls-Royce" loading="lazy" width="800" height="533">
             <div class="svc-body">
               <span class="svc-ic"><svg class="ic" aria-hidden="true"><use href="#i-gem"/></svg></span>
@@ -567,77 +567,6 @@
         </div>
         <div class="rail" data-rail>
           <div class="tour-grid" data-tour-grid></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- WEDDINGS & VINTAGE -->
-    <section class="section weddings" id="weddings" aria-labelledby="weddingsTitle">
-      <div class="container">
-        <div class="weddings-top">
-          <div class="weddings-copy">
-            <p class="eyebrow eyebrow-light">Weddings &amp; vintage cars</p>
-            <h2 id="weddingsTitle">Arrive the way you have always pictured it.</h2>
-            <p class="section-sub">A 1959 Rolls-Royce Silver Cloud. A 1977 Daimler convertible. Chauffeurs trained in wedding etiquette, ribbons included. Check your date now and hold the car with a deposit.</p>
-            <ul class="wd-points">
-              <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>3 hours included, extra hours available</li>
-              <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Secure your date with a €150 deposit</li>
-              <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Balance due 14 days before the wedding</li>
-            </ul>
-          </div>
-
-          <form class="avail-card" data-avail-form novalidate>
-            <h3><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>Check availability</h3>
-            <div class="field field-dark">
-              <label for="avDate">Wedding date</label>
-              <input id="avDate" type="date" data-date data-offset="180">
-            </div>
-            <div class="field field-dark field-select">
-              <label for="avCar">Car</label>
-              <select id="avCar"></select>
-              <svg class="ic select-chev" aria-hidden="true"><use href="#i-down"/></svg>
-            </div>
-            <button class="btn btn-gold btn-block btn-lg" type="submit">Check this date</button>
-            <div class="avail-result" data-avail-result="section" aria-live="polite" hidden></div>
-          </form>
-        </div>
-
-        <div class="rail-head">
-          <h3 class="rail-title">The classic fleet <span>Eight cars, 1958 to 1978</span></h3>
-          <div class="rail-nav rail-nav-dark">
-            <button class="icon-btn icon-btn-line" type="button" aria-label="Previous cars" aria-controls="carRail" data-rail-prev="carRail"><svg class="ic" aria-hidden="true"><use href="#i-left"/></svg></button>
-            <button class="icon-btn icon-btn-line" type="button" aria-label="Next cars" aria-controls="carRail" data-rail-next="carRail"><svg class="ic" aria-hidden="true"><use href="#i-right"/></svg></button>
-          </div>
-        </div>
-        <div class="rail rail-dark" id="carRail" data-rail>
-          <div class="car-grid" data-car-grid></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section class="section how" aria-labelledby="howTitle">
-      <div class="container how-grid">
-        <div>
-          <p class="eyebrow">Looked after</p>
-          <h2 id="howTitle">Booked in minutes. Looked after all the way.</h2>
-          <ol class="journey">
-            <li><span class="j-when">When you book</span><p>A fixed price, instant confirmation and your VAT receipt by email.</p></li>
-            <li><span class="j-when">The evening before</span><p>Your chauffeur's name, car and plate by SMS and email.</p></li>
-            <li><span class="j-when">On the day</span><p>Flight tracking, live updates and our 24/7 Ħamrun office behind every ride.</p></li>
-          </ol>
-        </div>
-        <div class="status-demo" aria-label="Example of booking status updates">
-          <div class="sd-head">
-            <img src="assets/mark.png" alt="" width="36" height="36">
-            <div><strong>Booking JHN-48217</strong><span>Airport → The Phoenicia Malta</span></div>
-          </div>
-          <ol class="sd-timeline">
-            <li class="done"><span class="dot"></span><div><strong>Booking confirmed</strong><span>Receipt sent to your email</span></div><time>Mon 09:14</time></li>
-            <li class="done"><span class="dot"></span><div><strong>Chauffeur assigned</strong><span>Mario · Mercedes E-Class · BHK 412</span></div><time>Tue 18:02</time></li>
-            <li class="now"><span class="dot"></span><div><strong>Flight EK109 landed</strong><span>Mario is waiting in arrivals with your name board</span></div><time>Wed 14:41</time></li>
-            <li><span class="dot"></span><div><strong>Arrived at your hotel</strong><span>Rate your ride</span></div><time>&nbsp;</time></li>
-          </ol>
         </div>
       </div>
     </section>
@@ -831,7 +760,7 @@
               <li><a href="#transfers">Airport transfers</a></li>
               <li><a href="#chauffeur">Chauffeur by the hour</a></li>
               <li><a href="#tours">Private tours</a></li>
-              <li><a href="#weddings">Wedding &amp; vintage cars</a></li>
+              <li><a href="#booker" data-book-tab="wedding">Wedding &amp; vintage cars</a></li>
               <li><a href="#manage" data-manage>Manage booking</a></li>
             </ul>
           </div>
@@ -1039,7 +968,7 @@
 
   <div class="toast" role="status" aria-live="polite" data-toast hidden></div>
 
-  <script src="js/data.js?v=14"></script>
-  <script src="js/app.js?v=14"></script>
+  <script src="js/data.js?v=15"></script>
+  <script src="js/app.js?v=15"></script>
 </body>
 </html>

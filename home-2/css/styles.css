@@ -531,49 +531,10 @@ h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
 .tc-list li { display: flex; align-items: center; gap: 8px; }
 .tc-list .ic { width: 16px; height: 16px; color: var(--gold); }
 
-/* weddings */
-.weddings { background: radial-gradient(120% 80% at 85% 0%, #1f2f42 0%, var(--ink) 60%); color: var(--white); }
-.weddings .section-sub { color: rgba(255,255,255,.72); }
-.weddings-top { display: grid; gap: 28px; margin-bottom: 36px; }
-.wd-points { display: grid; gap: 10px; margin-top: 22px; font-size: 15px; }
-.wd-points li { display: flex; align-items: center; gap: 10px; }
-.wd-points .ic { width: 18px; height: 18px; color: var(--gold); }
-.avail-card { background: var(--ink-2); border: 1px solid var(--ink-line); border-radius: var(--r-lg); padding: 18px; display: grid; gap: 10px; align-self: start; }
-.avail-card h3 { display: flex; align-items: center; gap: 10px; font-size: 18px; margin-bottom: 4px; }
-.avail-card h3 .ic { color: var(--gold); }
-.field-dark { background: var(--ink-3); border-color: rgba(255,255,255,.14); padding-left: 14px; }
-.field-dark label { color: rgba(255,255,255,.6); }
-.field-dark input, .field-dark select { color: var(--white); color-scheme: dark; }
-.field-dark select option { color: var(--text); }
-.field-dark:focus-within { border-color: var(--gold); }
-.field-dark .select-chev { color: rgba(255,255,255,.6); }
 
-.car-grid { display: grid; grid-auto-flow: column; grid-auto-columns: 72%; gap: 14px; padding-bottom: 6px; }
-.car-card { scroll-snap-align: start; background: var(--ink-2); border: 1px solid var(--ink-line); border-radius: var(--r-lg); overflow: hidden; display: flex; flex-direction: column; }
-.car-media { aspect-ratio: 3 / 2; overflow: hidden; background: #1c1d22; }
-.car-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
-.car-card:hover .car-media img { transform: scale(1.04); }
-.car-body { padding: 14px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .car-year { font-family: var(--font-display); font-weight: 600; letter-spacing: .08em; color: var(--gold-soft); font-size: 13px; }
-.car-card h3 { font-size: 16px; line-height: 1.25; }
-.car-meta { display: flex; gap: 12px; font-size: 12.5px; color: rgba(255,255,255,.62); flex-wrap: wrap; }
-.car-meta span { display: inline-flex; align-items: center; gap: 5px; }
-.car-meta .ic { width: 14px; height: 14px; }
-.car-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid var(--ink-line); }
-.car-foot small { display: block; font-size: 11.5px; color: rgba(255,255,255,.55); }
-.car-foot b { font-size: 17px; }
-.car-check { border: 1px solid rgba(201,166,70,.5); background: transparent; color: var(--gold-soft); border-radius: 99px; padding: 7px 12px; font-size: 12.5px; font-weight: 700; white-space: nowrap; }
-.car-check:hover { background: rgba(201,166,70,.12); }
 
 
-/* how */
-.how { background: var(--ivory); }
-.how-grid { display: grid; gap: 40px; }
-.status-demo { background: var(--white); border-radius: var(--r-xl); padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--line); align-self: center; }
-.sd-head { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
-.sd-head img { width: 40px; height: 40px; border-radius: 10px; background: var(--ink); padding: 4px; }
-.sd-head strong { display: block; font-size: 15px; }
-.sd-head span { font-size: 13px; color: var(--muted); }
 .sd-timeline { padding-top: 16px; display: grid; }
 .sd-timeline li { position: relative; display: grid; grid-template-columns: 20px 1fr auto; gap: 12px; padding-bottom: 18px; }
 .sd-timeline li:last-child { padding-bottom: 0; }
@@ -873,7 +834,6 @@ h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
    ========================================================================== */
 @media (min-width: 480px) {
   .tour-grid { grid-auto-columns: 62%; }
-  .car-grid { grid-auto-columns: 48%; }
   .review-grid { grid-auto-columns: 62%; }
   .svc-card { min-height: 290px; }
   .cta-actions { grid-auto-flow: column; justify-content: start; }
@@ -899,7 +859,6 @@ h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
   .route-list li { break-inside: avoid; }
   .calc-vehicles { grid-template-columns: repeat(4, 1fr); }
   .tour-grid { grid-auto-columns: 44%; }
-  .car-grid { grid-auto-columns: 34%; }
   .review-grid { grid-auto-columns: 46%; }
   .footer-cols { grid-template-columns: repeat(3, 1fr); }
   .footer-bottom { grid-template-columns: 1fr auto; align-items: center; }
@@ -907,7 +866,6 @@ h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
   .section-head-row { grid-template-columns: 1fr auto; align-items: end; }
   .chips-filter { margin: 0; padding: 0; }
   .rail-nav { display: flex; }
-  .weddings-top { grid-template-columns: 1.1fr 1fr; align-items: start; }
 
   /* sheet becomes centered modal */
   .sheet { width: min(980px, calc(100% - 48px)); height: min(820px, calc(100% - 48px)); margin: auto; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); }
@@ -967,11 +925,8 @@ h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
   .rail { margin: 0; overflow: visible; }
   .rail > * { padding-inline: 0; }
   .tour-grid { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  #carRail { overflow-x: auto; }
-  .car-grid { grid-auto-columns: calc((100% - 3 * 16px) / 4.25); gap: 16px; }
   .review-grid { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 
-  .how-grid { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
   .about-grid { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
   .about-year { right: -24px; bottom: -24px; font-size: 52px; padding: 18px 26px; }
   .faq-grid { grid-template-columns: 0.8fr 1.2fr; gap: 80px; }
@@ -1033,11 +988,6 @@ h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
 .mm-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .mm-care a { padding-block: 10px; }
 
-/* journey (how it works) */
-.journey { margin-top: 28px; border-top: 1px solid var(--line-2); }
-.journey li { display: grid; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--line-2); }
-.j-when { font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-ink); }
-.journey p { font-size: 16px; }
 
 /* heritage timeline */
 .heritage { margin-top: 28px; border-top: 1px solid var(--line); }
@@ -1070,7 +1020,6 @@ h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
   .route-row .rr-go { display: none; }
   .route-row { padding-inline: 8px; }
   .route-row:hover { background: var(--white); }
-  .journey li { grid-template-columns: 190px 1fr; gap: 20px; align-items: baseline; }
   .cc-grid { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); gap: 20px; overflow: visible; margin: 0; padding: 0; }
   .tile-band { height: 28px; background-size: 28px 28px; }
 }
@@ -1104,12 +1053,6 @@ h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
   .main-nav > ul > li > a, .nav-dd-btn { padding: 8px 9px; font-size: 14px; }
 }
 
-/* wedding car carousel */
-.rail-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
-.rail-title { font-size: 18px; color: var(--white); }
-.rail-title span { font-family: var(--font-ui); font-size: 14px; font-weight: 500; color: rgba(255,255,255,.6); margin-left: 8px; }
-.rail-nav-dark .icon-btn-line { background: transparent; border-color: rgba(255,255,255,.28); color: var(--white); }
-.rail-nav-dark .icon-btn-line:hover { background: transparent; border-color: var(--gold); color: var(--gold-soft); }
 .icon-btn-line:disabled { opacity: .35; cursor: default; pointer-events: none; }
 
 @media (min-width: 1600px) {
