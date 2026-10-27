@@ -6,6 +6,6 @@
   "scripts": {
     "build": "node build.mjs",
     "dev": "node build.mjs && node server.mjs",
-    "check": "node --check home-1/app.js && node --check home-1/navigation.js && node --check home-2/js/app.js && node --check home-2/js/data.js"
+    "check": "node --check home-1/app.js && node --check home-1/navigation.js && node --check home-2/js/app.js && node --check home-2/js/data.js && node --check home-3/js/app.js && node --check home-3/js/data.js"
   }
 }
